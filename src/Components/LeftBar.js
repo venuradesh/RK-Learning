@@ -1,11 +1,20 @@
+//dependencies
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const LeftBar = () => {
   return (
     <Container>
-      <div className="showCourseRequests item">Show Course Requests</div>
-      <div className="addCourse item">Add new Course</div>
+      <Link to="/">
+        <div className="home item">Home</div>
+      </Link>
+      <Link to="/requests">
+        <div className="showCourseRequests item">Show Course Requests</div>
+      </Link>
+      <Link to="/create">
+        <div className="addCourse item">Add new Course</div>
+      </Link>
     </Container>
   );
 };

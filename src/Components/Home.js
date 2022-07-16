@@ -23,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     getCourses();
-  }, []);
+  });
 
   if (loading) {
     return (

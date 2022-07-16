@@ -1,23 +1,30 @@
 //dependencies
 import React from "react";
 import styled from "styled-components";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //components
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import LeftBar from "./Components/LeftBar";
+import AddCourse from "./Components/AddCourse";
 
 const App = () => {
   return (
-    <Container>
-      <div className="small-dot dot"></div>
-      <div className="big-dot dot"></div>
-      <Header />
-      <div className="main-content">
-        <LeftBar />
-        <Home />
-      </div>
-    </Container>
+    <Router>
+      <Container>
+        <div className="small-dot dot"></div>
+        <div className="big-dot dot"></div>
+        <Header />
+        <div className="main-content">
+          <LeftBar />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/create" element={<AddCourse />} />
+          </Routes>
+        </div>
+      </Container>
+    </Router>
   );
 };
 
@@ -38,10 +45,10 @@ const Container = styled.div`
   }
 
   .small-dot {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     top: 100px;
-    left: 100px;
+    left: 300px;
   }
 
   .big-dot {
