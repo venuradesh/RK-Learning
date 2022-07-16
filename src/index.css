@@ -4,6 +4,7 @@
   /* colors */
   --bg-clr: #090b13;
   --bg-dot: #374a6d80;
+  --border-clr: #262626;
 
   /* typography */
   --font-fam: "Exo", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -12,6 +13,7 @@
   --font-w-3: 400;
   --font-w-4: 600;
   --txt-clr: #f2f2f2;
+  --txt-clr-gray: #737373;
 }
 
 * {

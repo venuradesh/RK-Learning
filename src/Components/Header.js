@@ -14,7 +14,9 @@ const Header = () => {
 
   return (
     <Container>
-      <div className="logo-container">RK Learning</div>
+      <div className="logo-container">
+        RK Learning <span>Dashboard</span>
+      </div>
       <div className="user-container" ref={profile}>
         <div className="user-profilePic">A</div>
         <div className="user-profileName">Administrator</div>
@@ -30,7 +32,7 @@ const Header = () => {
 export default Header;
 
 const Container = styled.div`
-  z-index: 1;
+  z-index: 100;
   width: 100vw;
   height: 70px;
   background-color: var(--bg-clr);
@@ -38,12 +40,19 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 40px;
-  position: relative;
+  position: sticky;
+  top: 0;
 
   .logo-container {
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: var(--font-w-4);
+    pointer-events: none;
+
+    span {
+      font-size: 0.8rem;
+      color: var(--txt-clr-gray);
+    }
   }
 
   .user-container {

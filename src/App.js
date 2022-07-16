@@ -1,6 +1,11 @@
+//dependencies
 import React from "react";
 import styled from "styled-components";
+
+//components
 import Header from "./Components/Header";
+import Home from "./Components/Home";
+import LeftBar from "./Components/LeftBar";
 
 const App = () => {
   return (
@@ -8,6 +13,10 @@ const App = () => {
       <div className="small-dot dot"></div>
       <div className="big-dot dot"></div>
       <Header />
+      <div className="main-content">
+        <LeftBar />
+        <Home />
+      </div>
     </Container>
   );
 };
