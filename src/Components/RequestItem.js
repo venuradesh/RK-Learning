@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PersonIcon from "@mui/icons-material/Person";
 
 const RequestItem = ({ data, onClick }) => {
-  console.log(data.flag);
   return (
     <Container onClick={onClick}>
       <div className="profilePic">

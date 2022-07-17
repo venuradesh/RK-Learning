@@ -9,6 +9,7 @@ import RequestItem from "./RequestItem";
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
+  const [userId, setUserId] = useState();
   const [itemClicked, setItemClicked] = useState(false);
   const [individualItem, setIndividualItem] = useState();
   const collectionRef = firebase.firestore().collection("user");
@@ -39,14 +40,16 @@ const Requests = () => {
         {requests.length !== 0 ? (
           <>
             {requests.map((request, key) => (
-              <RequestItem
-                data={request}
-                key={key}
-                onClick={() => {
-                  setItemClicked(true);
-                  setIndividualItem(request);
-                }}
-              />
+              <>
+                <RequestItem
+                  data={request}
+                  key={key}
+                  onClick={() => {
+                    setItemClicked(true);
+                    setIndividualItem(request);
+                  }}
+                />
+              </>
             ))}
           </>
         ) : (

@@ -1,49 +1,30 @@
-import { findAllByDisplayValue } from "@testing-library/react";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import firebase from "../firebase";
+import RequestCard from "./RequestCard";
 
 function RequestCourse({ details }) {
-  const [course, setCourse] = useState();
-
+  const [course, setCourse] = useState([]);
+  const courseArray = [];
+  const [courseId, setCourseId] = useState();
   const collectionRefCourse = firebase.firestore().collection("course");
   const collectionRefUser = firebase.firestore().collection("user");
-
-  const onBoughtClick = (id, index) => {
-    const obj = {
-      id: id,
-      isBuy: false,
-    };
-
-    const newObj = {
-      id: id,
-      isBuy: true,
-    };
-    collectionRefUser.doc(details.id).onSnapshot((snap) => {
-      snap.data().course.map((item) => {
-        if (item.id === id) {
-          collectionRefUser
-            .doc(details.id)
-            .update(`course`, firebase.firestore.FieldValue.arrayRemove(obj))
-            .then(() => {
-              collectionRefUser
-                .doc(details.id)
-                .update(`course`, firebase.firestore.FieldValue.arrayUnion(newObj))
-                .then(() => {
-                  console.log("done");
-                });
-            });
-        }
-      });
-    });
-  };
 
   const onCourseRender = (id) => {
     collectionRefCourse
       .doc(id)
       .get()
-      .then((docs) => {
-        setCourse({ ...docs.data() });
+      .then((res) => {
+        console.log(res.data());
+        // setCourse((prev) => [
+        //   ...prev,
+        //   {
+        //     image: res.data().image,
+        //     name: res.data().name,
+        //     price: res.data().price,
+        //     playlist: res.data().playlist,
+        //   },
+        // ]);
       });
   };
 
@@ -54,31 +35,7 @@ function RequestCourse({ details }) {
       </div>
       <div className="course-container">
         {details.course.map((item, index) => (
-          <div className="course-wrapper" key={index}>
-            {onCourseRender(item.id)}
-            {course ? (
-              <>
-                <div className="courseDp">
-                  <img src={course.image} alt="Course Thumbnail" />
-                  <div className="background-color"></div>
-                </div>
-                <div className="course-details">
-                  <div className="content-container">
-                    <div className="title">{course.name}</div>
-                    <div className="price">Rs. {course.price}</div>
-                  </div>
-                  <div className="btn-container">
-                    <div className="bought" onClick={() => onBoughtClick(item.id, index)}>
-                      Bought
-                    </div>
-                    <div className="not-yet">Not Yet</div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
+          <RequestCard courseId={item.id} key={index} details={details} />
         ))}
       </div>
     </Container>
@@ -132,6 +89,7 @@ const Container = styled.div`
       column-gap: 20px;
       overflow: hidden;
       z-index: 1;
+      margin-bottom: 20px;
 
       .courseDp {
         width: 200px;
