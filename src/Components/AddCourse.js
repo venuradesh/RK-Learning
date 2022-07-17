@@ -292,14 +292,6 @@ const Container = styled.div`
       max-height: 200px;
       overflow-y: auto;
 
-      &::-webkit-scrollbar {
-        width: 10px;
-
-        &-thumb {
-          background-color: var(--bg-dot);
-        }
-      }
-
       span {
         display: flex;
         align-items: center;
@@ -358,6 +350,7 @@ const Container = styled.div`
       height: 50px;
       display: flex;
       column-gap: 10px;
+      margin-bottom: 30px;
 
       button {
         flex: 1;
