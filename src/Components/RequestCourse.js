@@ -1,43 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import firebase from "../firebase";
 import RequestCard from "./RequestCard";
 
 function RequestCourse({ details }) {
-  const [course, setCourse] = useState([]);
-  const courseArray = [];
-  const [courseId, setCourseId] = useState();
-  const collectionRefCourse = firebase.firestore().collection("course");
-  const collectionRefUser = firebase.firestore().collection("user");
+  console.log(details);
+  const [notBuyCourses, setNotBuyCourses] = useState([]);
 
-  const onCourseRender = (id) => {
-    collectionRefCourse
-      .doc(id)
-      .get()
-      .then((res) => {
-        console.log(res.data());
-        // setCourse((prev) => [
-        //   ...prev,
-        //   {
-        //     image: res.data().image,
-        //     name: res.data().name,
-        //     price: res.data().price,
-        //     playlist: res.data().playlist,
-        //   },
-        // ]);
-      });
-  };
+  useEffect(() => {
+    setNotBuyCourses([...details.course.filter((item) => item.isBuy === false)]);
+  }, [details]);
 
   return (
     <Container>
       <div className="id-container">
         <span>User Id: </span> {details.id}
       </div>
-      <div className="course-container">
-        {details.course.map((item, index) => (
-          <RequestCard courseId={item.id} key={index} details={details} />
-        ))}
-      </div>
+      <div className="course-container">{notBuyCourses.length !== 0 && notBuyCourses.map((item, index) => <RequestCard courseId={item.id} key={index} details={details} />)}</div>
     </Container>
   );
 }
