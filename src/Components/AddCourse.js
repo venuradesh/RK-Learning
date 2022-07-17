@@ -5,11 +5,13 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 //components and config files
 import firebase, { storage } from "../firebase";
 
 const AddCourse = () => {
+  const navigate = useNavigate();
   const [noOfVideos, setNoOfVideos] = useState(0);
   const [videos, setVideos] = useState([]);
   const [imageUpload, setImageUpload] = useState();
@@ -39,7 +41,7 @@ const AddCourse = () => {
                 playlist: videoAvailability ? videos : [],
               })
               .then(() => {
-                document.location.href = "/";
+                navigate("/");
               });
           });
         })

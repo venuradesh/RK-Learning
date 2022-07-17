@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const CourseCard = (props) => {
   return (
-    <Container>
+    <Container onClick={props.onClick}>
       <div className="big-dot dot"></div>
       <div className="small-dot dot"></div>
       <div className="thumbnail">

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import RequestCard from "./RequestCard";
 
 function RequestCourse({ details }) {
-  console.log(details);
   const [notBuyCourses, setNotBuyCourses] = useState([]);
 
   useEffect(() => {

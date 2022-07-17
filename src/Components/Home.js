@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import firebase from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 //components
 import CourseCard from "./CourseCard";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [courses, setCourses] = useState([]);
   const db = firebase.firestore().collection("course");
@@ -14,16 +16,20 @@ const Home = () => {
     db.onSnapshot((snap) => {
       const course = [];
       snap.docs.forEach((doc) => {
-        course.push(doc.data());
+        course.push({ ...doc.data(), id: doc.id });
       });
       setCourses(course);
       setLoading(false);
     });
   };
 
+  const onCourseCardClick = (courseData) => {
+    navigate(`/course/${courseData.id}`);
+  };
+
   useEffect(() => {
     getCourses();
-  });
+  }, []);
 
   if (loading) {
     return (
@@ -32,14 +38,7 @@ const Home = () => {
       </Container>
     );
   } else {
-    return (
-      <Container>
-        {courses ? courses.map((courseData, index) => <CourseCard data={courseData} key={index} />) : ""}
-        <div className="add-new-course">
-          <span>+</span>
-        </div>
-      </Container>
-    );
+    return <Container>{courses ? courses.map((courseData, index) => <CourseCard data={courseData} key={index} onClick={() => onCourseCardClick(courseData)} />) : ""}</Container>;
   }
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Header = () => {
+const Header = ({ logoutfunc }) => {
   const logoutContainer = useRef(null);
   const profile = useRef(null);
 
@@ -21,7 +21,7 @@ const Header = () => {
         <div className="user-profilePic">A</div>
         <div className="user-profileName">Administrator</div>
       </div>
-      <div className="logout-container" ref={logoutContainer}>
+      <div className="logout-container" ref={logoutContainer} onClick={() => logoutfunc()}>
         Logout
         <LogoutIcon className="logout-icon" />
       </div>

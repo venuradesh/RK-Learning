@@ -52,7 +52,7 @@ const Requests = () => {
             ))}
           </>
         ) : (
-          <>No Requests</>
+          <div className="no-requests">No Requests</div>
         )}
       </RequestList>
       {itemClicked && individualItem ? (
@@ -112,5 +112,13 @@ const RequestList = styled.div`
       bottom: 70%;
       right: 80%;
     }
+  }
+
+  .no-requests {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
