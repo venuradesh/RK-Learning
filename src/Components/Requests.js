@@ -9,7 +9,6 @@ import RequestItem from "./RequestItem";
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
-  const [userId, setUserId] = useState();
   const [itemClicked, setItemClicked] = useState(false);
   const [individualItem, setIndividualItem] = useState();
   const collectionRef = firebase.firestore().collection("user");

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import firebase from "../firebase";
 
 function RequestCard({ courseId, details }) {
@@ -40,7 +39,7 @@ function RequestCard({ courseId, details }) {
       .then((res) => {
         setCourses({ ...res.data() });
       });
-  }, []);
+  }, [courseId]);
 
   return (
     <>
