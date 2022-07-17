@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import firebase from "../firebase";
 
 function RequestCard({ courseId, details }) {
   const [courses, setCourses] = useState({});
+  const navigate = useNavigate();
 
   const collectionRefCourse = firebase.firestore().collection("course");
   const collectionRefUser = firebase.firestore().collection("user");
 
   const onBoughtClick = (id) => {
+    console.log("within");
     const obj = {
       id: id,
       isBuy: false,
@@ -17,7 +20,7 @@ function RequestCard({ courseId, details }) {
       id: id,
       isBuy: true,
     };
-    collectionRefUser.doc(details.id).onSnapshot((snap) => {
+    const unsub = collectionRefUser.doc(details.id).onSnapshot((snap) => {
       snap.data().course.map((item) => {
         if (item.id === id) {
           collectionRefUser
@@ -25,10 +28,12 @@ function RequestCard({ courseId, details }) {
             .update(`course`, firebase.firestore.FieldValue.arrayRemove(obj))
             .then(() => {
               collectionRefUser.doc(details.id).update(`course`, firebase.firestore.FieldValue.arrayUnion(newObj));
-              document.location.reload();
+              navigate("/");
             });
         }
       });
+
+      unsub();
     });
   };
 

@@ -1,7 +1,7 @@
 //dependencies
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 //components
 import Header from "./Components/Header";
@@ -9,25 +9,60 @@ import Home from "./Components/Home";
 import LeftBar from "./Components/LeftBar";
 import AddCourse from "./Components/AddCourse";
 import Requests from "./Components/Requests";
-import RequestCourse from "./Components/RequestCourse";
+import Login from "./Components/Login";
+import Course from "./Components/Course";
 
 const App = () => {
+  const navigate = useNavigate();
+  const adminUser = {
+    userName: "admin",
+    password: "admin",
+  };
+
+  const [user, setUser] = useState({ userName: "", password: "" });
+
+  const LoginFunc = (details) => {
+    setUser({ userName: details.userName, password: details.password });
+    navigate("/");
+  };
+
+  const LogoutFunc = () => {
+    setUser({ userName: "", password: "" });
+    document.location.reload();
+  };
+
   return (
-    <Router>
-      <Container>
-        <div className="small-dot dot"></div>
-        <div className="big-dot dot"></div>
-        <Header />
-        <div className="main-content">
-          <LeftBar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/create" element={<AddCourse />} />
-            <Route exact path={`/requests`} element={<Requests />} />
-          </Routes>
-        </div>
-      </Container>
-    </Router>
+    <>
+      {user.userName === adminUser.userName && user.password === user.password ? (
+        <Container>
+          <div className="small-dot dot"></div>
+          <div className="big-dot dot"></div>
+          <Header logoutfunc={LogoutFunc} />
+          <div className="main-content">
+            <LeftBar />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path={`/course/:courseId`} element={<Course />} />
+              <Route exact path="/create" element={<AddCourse />} />
+              <Route exact path={`/requests`} element={<Requests />} />
+            </Routes>
+          </div>
+        </Container>
+      ) : (
+        <>
+          {
+            <Container>
+              <div className="small-dot dot"></div>
+              <div className="big-dot dot"></div>
+              <Routes>
+                <Route exact path="/login" element={<Login loginfunc={LoginFunc} loginInfo={adminUser} />} />
+                <Route path="*" element={<Navigate to="/login" replace />} />
+              </Routes>
+            </Container>
+          }
+        </>
+      )}
+    </>
   );
 };
 
