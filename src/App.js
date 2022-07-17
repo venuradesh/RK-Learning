@@ -8,6 +8,8 @@ import Header from "./Components/Header";
 import Home from "./Components/Home";
 import LeftBar from "./Components/LeftBar";
 import AddCourse from "./Components/AddCourse";
+import Requests from "./Components/Requests";
+import RequestCourse from "./Components/RequestCourse";
 
 const App = () => {
   return (
@@ -21,6 +23,7 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/create" element={<AddCourse />} />
+            <Route exact path={`/requests`} element={<Requests />} />
           </Routes>
         </div>
       </Container>
